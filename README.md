@@ -170,8 +170,32 @@ class SimilarityBasedAgent:
 ### Evaluation
 
 
+For every test sample, the overlap between the response returned by the model
+and the origianl response in the test set is calculated by looking at their intersection
+and then normalizing it.
 
-#### Similarity Based Agent
+Performance on test set:
+Probability based model: 0.225
+Cosine similarity based model: 0.25 
+
+Although these scores may seem low, considering that the model does not have generative
+capabilities, they show that there was a decent overlap in the answer produced by the model.
+Cosine similarity produced a better result relative to the probability based model showing
+that the Bag Of Word feature representations may have been helpful
+
+Using this metric, the performance on the train set was 1 for both models since both
+were able to find the exact responses in the dataset.
+
+So, both models were overfitting to the train set. It is important to note this this metric
+is biased towards the training samples and we will look for be
 
 ### Conclusion section: 
-What is the conclusion of your 1st model? What can be done to possibly improve it?
+It can be seen that the cosine similarity model performs slightly better than the probability based one.
+One reason for this is that converting words into feature vectors using Bag Of Words helps
+These models will serve as useful baselines/benchmarks for the models we build for the upcoming milestones.
+
+In the future models we build we plan on exploring/ looking into following:
+- Using Hidden Markov Models to perform named entity recognition. This should help focus on certain key parts of the sentence
+- Ensembling different kinds of models to see the effect on performance
+- Experimenting with different embeddings for the feature vectors that better capture semantic meaning
+- Looking for better evaluation metric 
