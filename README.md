@@ -8,7 +8,7 @@
 
 ### Data Exploration (link)
 
-### Data Preprocessing (link)
+### Data Preprocessing ([link](https://github.com/Arnav710/cse150a/blob/main/data_preprocessing.ipynb))
 
 Since all three columns in our dataset involved text data, text related preprocessing
 had to be done. The data preprocessing pipeline consisted of the following steps:
@@ -38,10 +38,140 @@ Stemming allows us to retain only the root words by removing any prefixes or suf
 that may be associated with the word. This helps limit the size of the vocabulary by
 sort of grouping different forms of the same words.
 
+### Models and Evaluation ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
 
-### Train your first model (link)
+Before training the model, we split our dataset into train, test and validation components.
 
-### Evaluate your model
+After performing the split, their sizes were as follows:
+```
+Number of samples in train set: 208097
+Number of samples in validation set: 23122
+Number of samples in test set: 25691
+```
+
+The following descibes the models we built and their performance:
+
+#### `ProbabilityBasedAgent`
+
+The probability based agent constructs the vocabulary by looking at all the 
+questions in the dataset. 
+
+When it is given a user query, iterates over all records and tries to find the 
+most similar question by computing `P(Query | i-th sentence)`. Laplace smoothening
+is done to avoid 0 probabilities.
+
+It then tries to maximize this probability and outputs the corresponding response.
+
+```
+class ProbabilityBasedAgent:
+    
+	def __init__(self, questions, responses):
+		self.questions = questions
+		self.responses = responses
+		self.question_sets = []
+		self.vocab = None
+
+	def get_vocab(self):
+		vocab = set()
+		for question in self.questions:
+			for word in question.split():
+				vocab.add(word)
+		return list(vocab)
+
+	def prob_query_given_sentence(self, query, sentence_lst, alpha=1):
+		query_lst = query.split()
+		match = 0
+		
+		for token in query_lst:
+			if token in sentence_lst:
+				match += 1
+		
+		# Apply Laplace smoothing
+		numerator = match + alpha
+		denominator = len(query_lst) + alpha
+		
+		p = numerator / denominator
+		return p
+
+	def train(self):
+		self.vocab = self.get_vocab()
+
+		for question in self.questions:
+			self.question_sets.append(set(question.split()))
+
+	def find_closest_answer(self, query, k):
+		
+		probabilities_match = []
+		for i in range(len(self.questions)):
+			prob = self.prob_query_given_sentence(query, self.question_sets[i])
+			probabilities_match.append((prob, self.questions[i], self.responses[i]))
+
+		probabilities_match.sort(reverse=True)
+
+		return probabilities_match[:k]
+```
+
+
+#### `SimilarityBasedAgent`
+
+
+The similarity based agent constructs the vocabulary by looking at all the 
+questions in the dataset. It then converts the sentence into vectors using
+a using the Bag of Words approach.
+
+When it is given a user query, iterates over all records and tries to compute
+the cosine similarity between th user query vector and the vector associated
+with each of the questions in the dataset.
+
+It then tries to maximize this similarity.
+
+```
+class SimilarityBasedAgent:
+    
+	def __init__(self, questions, responses):
+		self.questions = questions
+		self.responses = responses
+		self.vocab = None
+		self.questions_vectors = None
+
+	def get_vocab(self):
+		vocab = set()
+		for question in self.questions:
+			for word in question.split():
+				vocab.add(word)
+		return list(vocab)
+	
+	def bag_of_words(self, question):
+		vec = []
+		for token in self.vocab:
+			vec.append(question.count(token))
+		return vec
+
+	def train(self):
+		self.vocab = self.get_vocab()
+		vectors = []
+		for question in self.questions:
+			vectors.append(self.bag_of_words(question))
+		self.questions_vectors = vectors
+
+	def find_closest_answer(self, query, k):
+		user_query_vector = self.bag_of_words(query)
+		
+		similarities = []
+		for i in range(len(self.questions)):
+			sim = cosine_similarity(user_query_vector, self.questions_vectors[i])
+			similarities.append((sim, self.questions[i], self.responses[i]))
+
+		similarities.sort(reverse=True)
+
+		return similarities[:k]
+```
+
+### Evaluation
+
+
+
+#### Similarity Based Agent
 
 ### Conclusion section: 
 What is the conclusion of your 1st model? What can be done to possibly improve it?
