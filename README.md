@@ -1,14 +1,14 @@
 # AI Medical Chatbot
 
-### Explain what your AI agent does in terms of PEAS. What is the "world" like? 
+## Explain what your AI agent does in terms of PEAS. What is the "world" like? 
 
-### What kind of agent is it? Goal based? Utility based? etc. 
+## What kind of agent is it? Goal based? Utility based? etc. 
 
-### Describe how your agent is set up and where it fits in probabilistic modeling
+## Describe how your agent is set up and where it fits in probabilistic modeling
 
-### Data Exploration (link)
+## Data Exploration (link)
 
-### Data Preprocessing ([link](https://github.com/Arnav710/cse150a/blob/main/data_preprocessing.ipynb))
+## Data Preprocessing ([link](https://github.com/Arnav710/cse150a/blob/main/data_preprocessing.ipynb))
 
 Since all three columns in our dataset involved text data, text related preprocessing
 had to be done. The data preprocessing pipeline consisted of the following steps:
@@ -38,7 +38,7 @@ Stemming allows us to retain only the root words by removing any prefixes or suf
 that may be associated with the word. This helps limit the size of the vocabulary by
 sort of grouping different forms of the same words.
 
-### Models and Evaluation ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
+## Models and Evaluation ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
 
 Before training the model, we split our dataset into train, test and validation components.
 
@@ -167,7 +167,7 @@ class SimilarityBasedAgent:
 		return similarities[:k]
 ```
 
-### Evaluation
+## Evaluation
 
 
 For every test sample, the overlap between the response returned by the model
@@ -189,7 +189,7 @@ were able to find the exact responses in the dataset.
 So, both models were overfitting to the train set. It is important to note this this metric
 is biased towards the training samples and we will look for be
 
-### Conclusion section: 
+## Conclusion section: 
 It can be seen that the cosine similarity model performs slightly better than the probability based one.
 One reason for this is that converting words into feature vectors using Bag Of Words helps
 These models will serve as useful baselines/benchmarks for the models we build for the upcoming milestones.
