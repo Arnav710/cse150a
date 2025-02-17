@@ -75,10 +75,6 @@ The data looks like the following after preprocessing:
 
 
 
-<img width="1209" alt="image" src="https://github.com/user-attachments/assets/389ca71b-50e8-4e79-a5e5-3f8c60b71c36" />
-
-
-
 ## Models and Evaluation ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
 
 Before training the model, we split our dataset into train, test and validation components.
