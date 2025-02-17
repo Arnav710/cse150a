@@ -20,11 +20,17 @@ Our dataset consists of a total of 256,916 records, each of which has three colu
 #### Description Length Distribution
 The descriptions in our dataset are normally short text, predominantly ranging from 10 to 20 words. This is crucial as it provides a unique, concise context for each patient's question without overwhelming the model.
 
+![Decription Length Distribution Plot](images/distributionofwordcounts.png)
+
 #### Patient Question Length Distribution
-Patient question distributions are more varied, with response lengths usually between 50 and 100 words. This degree of detail is optimal for providing sufficient context and information to allow the AI to generate accurate responses without unnecessary verbosity. 
+Patient question distributions are more varied, with response lengths usually between 50 and 100 words. This degree of detail is optimal for providing sufficient context and information to allow the AI to generate accurate responses without unnecessary verbosity.
+
+![Patient Question Length Distribution Plot](images/distributionofwordcountpq.png)
 
 #### Doctor Answer Distribution
 The responses of the doctor are longer compared to the questions and descriptions, and most of them are between 50 and 150 words. This range indicates that doctors provide lengthy but brief answers, which is an important aspect for our chatbot to emulate so that it is effective and understandable in communication.
+
+![Doctor Answer Distribution Plot](images/distributionofwordsda.png)
 
 An understanding of word count proportion and common symptoms in the database informs our preprocessing strategies and helps us calibrate the AI model to overcome common dialogue styles used in doctor visits. Analysis assures that our chatbot is optimized to understand and answer questions satisfactorily, striking a balance between being too detailed or short in its dialogue.
 
