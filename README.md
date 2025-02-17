@@ -64,6 +64,21 @@ Stemming allows us to retain only the root words by removing any prefixes or suf
 that may be associated with the word. This helps limit the size of the vocabulary by
 sort of grouping different forms of the same words.
 
+The data looks like the following before preprocessing:
+
+<img width="1206" alt="image" src="https://github.com/user-attachments/assets/b08d1ba0-46e1-47f6-8350-27e1a8479e89" />
+
+
+The data looks like the following after preprocessing:
+
+<img width="1203" alt="image" src="https://github.com/user-attachments/assets/23028c09-4886-41b5-ae6f-932fdf191bd6" />
+
+
+
+<img width="1209" alt="image" src="https://github.com/user-attachments/assets/389ca71b-50e8-4e79-a5e5-3f8c60b71c36" />
+
+
+
 ## Models and Evaluation ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
 
 Before training the model, we split our dataset into train, test and validation components.
