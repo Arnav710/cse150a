@@ -20,7 +20,7 @@ Our dataset consists of a total of 256,916 records, each of which has three colu
 
 `Description`: describes the nature of the problem associated with the patients query in the record
 `Patient`: The patient describing the problems they are facing
-`Response`: The doctor's answer to the patient's query
+`Doctor`: The doctor's answer to the patient's query
 
 #### Description Length Distribution
 The descriptions in our dataset are normally short text, predominantly ranging from 10 to 20 words. This is crucial as it provides a unique, concise context for each patient's question without overwhelming the model.
@@ -100,6 +100,7 @@ Number of samples in train set: 208097
 Number of samples in validation set: 23122
 Number of samples in test set: 25691
 ```
+Due to limited compute resources we used a subsample of this.
 
 The following descibes the models we built and their performance:
 
