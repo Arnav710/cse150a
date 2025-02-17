@@ -198,7 +198,9 @@ and the origianl response in the test set is calculated by looking at their inte
 and then normalizing it.
 
 Performance on test set:
+
 Probability based model: 0.225
+
 Cosine similarity based model: 0.25 
 
 Although these scores may seem low, considering that the model does not have generative
@@ -210,7 +212,7 @@ Using this metric, the performance on the train set was 1 for both models since 
 were able to find the exact responses in the dataset.
 
 So, both models were overfitting to the train set. It is important to note this this metric
-is biased towards the training samples and we will look for be
+is biased towards the training samples and we will look for better evaluation metrics for the next milestone.
 
 ## Conclusion section: 
 It can be seen that the cosine similarity model performs slightly better than the probability based one.
