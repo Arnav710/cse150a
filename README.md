@@ -43,7 +43,7 @@ The histogram displays the distribution of word counts in patient questions and 
 ![Doctor Answer Distribution Plot](images/distributionofwordscombined.png)
 
 #### Common Patient Words
-Filler
+This plot represents the top 20 most common medically relevant words used in patient questions to doctors. The most frequently mentioned terms include "pain," "doctor," and "blood," suggesting that patients often seek advice about symptoms, medical professionals, and bodily functions. Other used words like "heart," "fever," "infection," and "cancer" indicate common concerns related to specific conditions and treatments. The distribution highlights the primary medical topics patients inquire about, providing insight into prevalent health concerns.
 
 ![Doctor Answer Distribution Plot](images/commonpatientwords.png)
 
