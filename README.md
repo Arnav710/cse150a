@@ -37,6 +37,16 @@ The responses of the doctor are longer compared to the questions and description
 
 ![Doctor Answer Distribution Plot](images/distributionofwordsda.png)
 
+#### Patient and Doctor Answer Distribution Comparison
+Filler
+
+![Doctor Answer Distribution Plot](images/distributionofwordscombined.png)
+
+#### Common Patient Words
+Filler
+
+![Doctor Answer Distribution Plot](images/commonpatientwords.png)
+
 An understanding of word count proportion and common symptoms in the database informs our preprocessing strategies and helps us calibrate the AI model to overcome common dialogue styles used in doctor visits. Analysis assures that our chatbot is optimized to understand and answer questions satisfactorily, striking a balance between being too detailed or short in its dialogue.
 
 ## Data Preprocessing ([link](https://github.com/Arnav710/cse150a/blob/main/data_preprocessing.ipynb))
