@@ -26,9 +26,6 @@ Patient question distributions are more varied, with response lengths usually be
 #### Doctor Answer Distribution
 The responses of the doctor are longer compared to the questions and descriptions, and most of them are between 50 and 150 words. This range indicates that doctors provide lengthy but brief answers, which is an important aspect for our chatbot to emulate so that it is effective and understandable in communication.
 
-#### Common Symptoms Analysis
-A bar chart of the most common symptoms helps to identify the most prevalent health conditions in the database. This data is important in ranking these conditions in the chatbot's response mechanisms, which will enhance its ability to respond to common medical queries accurately.
-
 An understanding of word count proportion and common symptoms in the database informs our preprocessing strategies and helps us calibrate the AI model to overcome common dialogue styles used in doctor visits. Analysis assures that our chatbot is optimized to understand and answer questions satisfactorily, striking a balance between being too detailed or short in its dialogue.
 
 ## Data Preprocessing ([link](https://github.com/Arnav710/cse150a/blob/main/data_preprocessing.ipynb))
