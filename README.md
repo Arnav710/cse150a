@@ -38,7 +38,7 @@ The responses of the doctor are longer compared to the questions and description
 ![Doctor Answer Distribution Plot](images/distributionofwordsda.png)
 
 #### Patient and Doctor Answer Distribution Comparison
-Filler
+The histogram displays the distribution of word counts in patient questions and doctor responses. Patient questions tend to be shorter, with a high frequency of lower word counts, while doctor responses generally have a broader distribution with longer texts. The overlap suggests that while some patient questions are longer, doctor responses are generally more detailed on average.
 
 ![Doctor Answer Distribution Plot](images/distributionofwordscombined.png)
 
