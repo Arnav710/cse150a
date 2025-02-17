@@ -2,9 +2,13 @@
 
 ## Explain what your AI agent does in terms of PEAS. What is the "world" like? 
 The AI physician chatbot functions within a simulated "world" of virtual health websites and websites on which it delivers treatment to patients through chat interfaces. In relation to the PEAS framework:
+
 	Performance Measures: Overlap of model generated response with actual response, BLEU/ROUGE scores for response quality, and user satisfaction ratings.
+ 
 	Environment: Virtual conversational AI environment found on health websites, where interactions are limited to text communication.
+ 
 	Actuators: The chatbot applies rule-based systems and probabilistic models, supplemented by some NLP techniques as needed, to generate answers that are delivered through web APIs or interfaces.
+ 
 	Sensors: It receives user input by typing and gathers instantaneous feedback to adapt and enhance responses in real-time.
  
 ## What kind of agent is it? Goal based? Utility based? etc. 
