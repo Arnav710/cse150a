@@ -4,11 +4,11 @@
 The AI physician chatbot functions within a simulated "world" of virtual health websites and websites on which it delivers treatment to patients through chat interfaces. In relation to the PEAS framework:
 	Performance Measures: Accuracy, F1-score, BLEU/ROUGE scores for response quality, and user satisfaction ratings.
 	Environment: Virtual conversational AI environment found on health websites, where interactions are limited to text communication.
-	Actuators: The chatbot applies NLP models and rule-based systems to generate answers, which are delivered through web APIs or interfaces.
+	Actuators: The chatbot applies rule-based systems and probabilistic models, supplemented by some NLP techniques as needed, to generate answers that are delivered through web APIs or interfaces.
 	Sensors: It receives user input by typing and gathers instantaneous feedback to adapt and enhance responses in real-time.
  
 ## What kind of agent is it? Goal based? Utility based? etc. 
-The chatbot is a goal-based agent, as it has a precise objective: to answer patient queries correctly, emulating a doctor's line of reasoning. This system understands symptoms, processes contextual information, and produces medically relevant answers. Making use of various NLP techniques, pattern matching, and probabilistic models, it reaches an informed decision and continually refines accuracy based on feedback.
+The chatbot is a goal-based agent, as it has a precise objective: to answer patient queries correctly, emulating a doctor's line of reasoning. This system understands symptoms, processes contextual information, and produces medically relevant answers. Making use of pattern matching, probabilistic models, and some NLP techniques, it reaches an informed decision and continually refines accuracy based on feedback.
 ## Describe how your agent is set up and where it fits in probabilistic modeling
 The agent starts with a strong foundation in simple probabilistic models such as pattern matching and Naive Bayes to address straightforward interpretation of user queries. These models form a foundation for learning how to process and answer medical queries. As the complexity of the queries increases, the system uses more sophisticated NLP techniques and ensembling methods to increase interpretation and response accuracy. This probabilistic approach allows the agent to handle natural language processing uncertainties adequately by statistical inference in forecasting and generating appropriate responses based on acquired data over the course of training and from user interactions.
 
