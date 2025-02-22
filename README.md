@@ -1,5 +1,15 @@
 # AI Medical Chatbot
 
+## Updates
+
+Here are some more details about our models based on the feedback received:
+
+1. 
+
+2. Machine learning models can not understand the meaning of words directly and work on them. So, the words and sentences in the dataset must be converted to some form of numerical representation. The most common way to do this is to convert sentences into vectors of floating point numbers that lie in n-dimensional space (where n is dependent on the method we use to come up with feature vector embeddings). One of the most simple yet effective ways to do this is the Bag Of Word approach. Here, we get the vocabulary. The vector has a length equal to the number of elements in the vocabulary, mapping each unique word to an index in the vector. The value at that index is the count of the corresponding word in the sentence.
+
+3. Cosine similarity is a similarity metric that is commonly used to determine how close two n-dimensional vectors are in some n-dimensional feature space. The cosine similarity for two vectors is given by their dot products divided by their magnitudes / L2 norms. A cosine similarity takes on a value between 0 to 1. The higher the value, the smaller is the cosine angle between the vectors, and thus the closer they are.
+
 ## Explain what your AI agent does in terms of PEAS. What is the "world" like? 
 The AI physician chatbot functions within a simulated "world" of virtual health websites and websites on which it delivers treatment to patients through chat interfaces. In relation to the PEAS framework:
 	Performance Measures: Overlap of model generated response with actual response, BLEU/ROUGE scores for response quality, and user satisfaction ratings.
