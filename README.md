@@ -11,8 +11,7 @@ Here are some more details about our models based on the feedback received:
 
 Here, i iterates over the query vector q and j iterates over a sentence s.
 
-![Uploading image.png…]()
-
+<img width="721" alt="image" src="https://github.com/user-attachments/assets/6a99ac8f-1900-4c0e-8656-5009d13d79df" />
 
 3. Machine learning models can not understand the meaning of words directly and work on them. So, the words and sentences in the dataset must be converted to some form of numerical representation. The most common way to do this is to convert sentences into vectors of floating point numbers that lie in n-dimensional space (where n is dependent on the method we use to come up with feature vector embeddings). One of the most simple yet effective ways to do this is the Bag Of Word approach. Here, we get the vocabulary. The vector has a length equal to the number of elements in the vocabulary, mapping each unique word to an index in the vector. The value at that index is the count of the corresponding word in the sentence.
 
