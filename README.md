@@ -271,3 +271,11 @@ In the future models we build we plan on exploring/ looking into following:
 - Ensembling different kinds of models to see the effect on performance
 - Experimenting with different embeddings for the feature vectors that better capture semantic meaning
 - Looking for better evaluation metric 
+
+## References
+
+1. Used Perplexity to come up with a better evaluation function. The evaluation function we were using initially looked at the
+word overlap between the doctor's response and the model prediction. Simply looking at word overlap is misleading though
+and does not take into account any form of semantic meaning. Using Perplexity we switched over to a new evalutation function
+that uses Hugging Face's sentence_transformers library to convert the sentences into vectors and then uses the cosine similarity
+metric to assess similarity.
