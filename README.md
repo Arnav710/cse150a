@@ -1,21 +1,6 @@
 # AI Medical Chatbot
 
-## Updates
-
-Here are some more details about our models based on the feedback received:
-
-1. The probability based model computes the probability of the query vector given each of the patient questions in the dataset. In this way it helps us determine the question in the dataset that is the closest match to the query. The query is tokenized by splitting it at whitespace. Then, we count the number of words that are in common between the query and the i-th sentence. Following that, the number of matches is divided by the length of the query vector. In order to prevent non-zero values, a smoothening factor is added to perform Laplace Smoothening.
-
-
-   $$P(\text{q | s}) = \frac{\sum_{i=1}^n \sum_{j=1}^m I(q_i = s_j) + \alpha}{n + \alpha}$$
-
-Here, i iterates over the query vector q and j iterates over a sentence s.
-
-<img width="721" alt="image" src="https://github.com/user-attachments/assets/6a99ac8f-1900-4c0e-8656-5009d13d79df" />
-
-3. Machine learning models can not understand the meaning of words directly and work on them. So, the words and sentences in the dataset must be converted to some form of numerical representation. The most common way to do this is to convert sentences into vectors of floating point numbers that lie in n-dimensional space (where n is dependent on the method we use to come up with feature vector embeddings). One of the most simple yet effective ways to do this is the Bag Of Word approach. Here, we get the vocabulary. The vector has a length equal to the number of elements in the vocabulary, mapping each unique word to an index in the vector. The value at that index is the count of the corresponding word in the sentence.
-
-4. Cosine similarity is a similarity metric that is commonly used to determine how close two n-dimensional vectors are in some n-dimensional feature space. The cosine similarity for two vectors is given by their dot products divided by their magnitudes / L2 norms. A cosine similarity takes on a value between 0 to 1. The higher the value, the smaller is the cosine angle between the vectors, and thus the closer they are.
+# PEAS/Agent Analysis
 
 ## Explain what your AI agent does in terms of PEAS. What is the "world" like? 
 The AI physician chatbot functions within a simulated "world" of virtual health websites and websites on which it delivers treatment to patients through chat interfaces. In relation to the PEAS framework:
@@ -29,6 +14,8 @@ The chatbot is a goal-based agent, as it has a precise objective: to answer pati
 
 ## Describe how your agent is set up and where it fits in probabilistic modeling
 The agent starts with a strong foundation in simple probabilistic models such as pattern matching and cosine similarity to address straightforward interpretation of user queries. These models form a foundation for learning how to process and answer medical queries. As the complexity of the queries increases, the system uses more sophisticated NLP techniques to increase interpretation and response accuracy. This probabilistic approach allows the agent to handle natural language processing uncertainties adequately by statistical inference in forecasting and generating appropriate responses based on acquired data over the course of training and from user interactions.
+
+# Data Exploration and Preprocessing
 
 ## Data Exploration ([link](https://github.com/Arnav710/cse150a/blob/main/data_exploration.ipynb))
 The initial step in our AI healthcare chatbot project is the appropriate exploration of the dataset, and this has a significant contribution towards understanding the shape and dynamics of the medical dialogue we are dealing with. Here, we consider the nature of the dataset and highlight the distribution of word count over descriptions, patient questions, and doctor answers.
@@ -107,9 +94,9 @@ The data looks like the following after preprocessing:
 
 
 
-## Models and Evaluation ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
+# Agent Setup and Training ([link](https://github.com/Arnav710/cse150a/blob/main/models.ipynb))
 
-Before training the model, we split our dataset into train, test and validation components.
+Before training the model, we split our dataset into train and test components.
 
 After performing the split, their sizes were as follows:
 ```
@@ -119,20 +106,42 @@ Number of samples in test set: 25691
 ```
 Due to limited compute resources we used a subsample of this.
 
-The following descibes the models we built and their performance:
+The following descibes the models we built and we later evaluate their performance
+
+#### `RandomAgent`
+
+##### Setup
+We built an agent to just give a random response to a user query so that we can use that as a baseline/benchmark
+against which we can comapre our other agents.
+
+##### Training/Code
+
+```python
+response_lst = list(y_train)
+for x in X_test['description'][:sample]:
+    random_answer = random.choice(response_lst)
+    preds.append(random_answer)
+```
+
+##### Diagram
+
+![alt text](images/RandomAgent.png)
 
 #### `ProbabilityBasedAgent`
 
-The probability based agent constructs the vocabulary by looking at all the 
-questions in the dataset. 
+##### Setup
+The probability based agent constructs the vocabulary by looking at all the  questions in the dataset. 
 
-When it is given a user query, iterates over all records and tries to find the 
-most similar question by computing `P(Query | i-th sentence)`. Laplace smoothening
-is done to avoid 0 probabilities.
+The probability based model computes the probability of the query vector given each of the patient questions in the dataset. In this way it helps us determine the question in the dataset that is the closest match to the query. The query is tokenized by splitting it at whitespace. Then, we count the number of words that are in common between the query and the i-th sentence. Following that, the number of matches is divided by the length of the query vector. In order to prevent non-zero values, a smoothening factor is added to perform Laplace Smoothening.
+
+   $$P(\text{q | s}) = \frac{\sum_{i=1}^n \sum_{j=1}^m I(q_i = s_j) + \alpha}{n + \alpha}$$
+
+Here, i iterates over the query vector q and j iterates over a sentence s.
 
 It then tries to maximize this probability and outputs the corresponding response.
 
-```
+##### Training Code
+```python
 class ProbabilityBasedAgent:
     
 	def __init__(self, questions, responses):
@@ -181,21 +190,22 @@ class ProbabilityBasedAgent:
 		return probabilities_match[:k]
 ```
 
+##### Diagram
+![alt text](images/ProbabilityBasedAgent.png)
 
 #### `SimilarityBasedAgent`
 
+##### Setup
 
-The similarity based agent constructs the vocabulary by looking at all the 
-questions in the dataset. It then converts the sentence into vectors using
-a using the Bag of Words approach.
+The similarity based agent constructs the vocabulary by looking at all the  questions in the dataset. It then converts the sentence into vectors using a using the Bag of Words approach. When it is given a user query, iterates over all records and tries to compute
+the cosine similarity between th user query vector and the vector associated with each of the questions in the dataset. It then tries to maximize this similarity.
 
-When it is given a user query, iterates over all records and tries to compute
-the cosine similarity between th user query vector and the vector associated
-with each of the questions in the dataset.
+Machine learning models can not understand the meaning of words directly and work on them. So, the words and sentences in the dataset must be converted to some form of numerical representation. The most common way to do this is to convert sentences into vectors of floating point numbers that lie in n-dimensional space (where n is dependent on the method we use to come up with feature vector embeddings). One of the most simple yet effective ways to do this is the Bag Of Word approach. Here, we get the vocabulary. The vector has a length equal to the number of elements in the vocabulary, mapping each unique word to an index in the vector. The value at that index is the count of the corresponding word in the sentence.
 
-It then tries to maximize this similarity.
+Cosine similarity is a similarity metric that is commonly used to determine how close two n-dimensional vectors are in some n-dimensional feature space. The cosine similarity for two vectors is given by their dot products divided by their magnitudes / L2 norms. A cosine similarity takes on a value between 0 to 1. The higher the value, the smaller is the cosine angle between the vectors, and thus the closer they are.
 
-```
+##### Training and Code
+```python
 class SimilarityBasedAgent:
     
 	def __init__(self, questions, responses):
@@ -237,8 +247,10 @@ class SimilarityBasedAgent:
 		return similarities[:k]
 ```
 
-## Evaluation
+##### Diagram
+![alt text](images/CosineSimilarityAgent.png)
 
+## Evaluation
 
 For every test sample, the overlap between the response returned by the model
 and the origianl response in the test set is calculated by looking at their intersection
@@ -279,3 +291,5 @@ word overlap between the doctor's response and the model prediction. Simply look
 and does not take into account any form of semantic meaning. Using Perplexity we switched over to a new evalutation function
 that uses Hugging Face's sentence_transformers library to convert the sentences into vectors and then uses the cosine similarity
 metric to assess similarity.
+2. Used Perplexity to come up with the idea of how Naive Bayes can be adapted for this task by converting sentences into vectors
+using term frequency inverse document frequency (TF-IDF)
