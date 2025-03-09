@@ -319,7 +319,7 @@ High $\cos \theta$ $\Longrightarrow$ Low $\theta$ $\Longrightarrow$ Smaller angl
 
 | Type of Model | Performance on X_test | Imporvement relative to Baseline|
 |----------|----------|----------|
-| RandomAgent | 0.1879 | Row 1, Col 3 |
+| RandomAgent | 0.1879 |  |
 | ProbabilityBasedAgent | 0.3824 | 2.035x |
 | SimilarityBasedAgent | 0.3579 | 1.9047x |
 | NaiveBayesAgent | 0.2671 | 1.421x |
