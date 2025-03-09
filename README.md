@@ -191,7 +191,7 @@ class ProbabilityBasedAgent:
 ```
 
 ##### Diagram
-![alt text](images/ProbabilityBasedAgent.png)
+![alt text](images/SimilarityAgent.png)
 
 #### `SimilarityBasedAgent`
 
@@ -248,7 +248,7 @@ class SimilarityBasedAgent:
 ```
 
 ##### Diagram
-![alt text](images/CosineSimilarityAgent.png)
+![alt text](images/ProbabilityAgent.png)
 
 ## Evaluation
 
