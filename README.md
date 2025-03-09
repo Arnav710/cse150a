@@ -191,7 +191,7 @@ class ProbabilityBasedAgent:
 ```
 
 ##### Diagram
-![alt text](images/SimilarityAgent.png)
+![alt text](images/ProbabilityAgent.png)
 
 #### `SimilarityBasedAgent`
 
@@ -248,41 +248,85 @@ class SimilarityBasedAgent:
 ```
 
 ##### Diagram
-![alt text](images/ProbabilityAgent.png)
+![alt text](images/SimilarityAgent.png)
 
-## Evaluation
+#### `NaiveBayesAgent`
 
-For every test sample, the overlap between the response returned by the model
-and the origianl response in the test set is calculated by looking at their intersection
-and then normalizing it.
+##### Setup
 
-Performance on test set:
+This multimodal naive bayes model assumes conditional independence between words given a response,
+and uses that to find the best response to the user query. Words are converted into vectors using a
+popular approach in NLP called TF-IDF (Term Frequency-Inverse Document Frequency).
 
-Probability based model: 0.225
+Term Frequency-Inverse Document Frequency stresses on the idea that given a corpus, some words in a 
+document (training sample) in our case are much more important that others. Words that appear frequenty
+in a document/training sample are given higher importantce. At the same time, words that appear frequentyly
+in the entire corpus are given lower importance. For example, in an document/training sample about "fever"
+would have a high TFIDF score and words like "and", "the", etc will have low scores.
 
-Cosine similarity based model: 0.25 
+The multimodal naive bayes model from sklearn was used since it is well suited for data where the input
+text is encoded as counts or TFIDF vectors. Given the output answer in our case, this model makes the following
+Naive Bayes assumption: P(word1, word2, ... wordn | y) = P(word1 | y) P(word2 | y) ... P(word3 | y)
 
-Although these scores may seem low, considering that the model does not have generative
-capabilities, they show that there was a decent overlap in the answer produced by the model.
-Cosine similarity produced a better result relative to the probability based model showing
-that the Bag Of Word feature representations may have been helpful
+##### Training and Code
 
-Using this metric, the performance on the train set was 1 for both models since both
-were able to find the exact responses in the dataset.
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
 
-So, both models were overfitting to the train set. It is important to note this this metric
-is biased towards the training samples and we will look for better evaluation metrics for the next milestone.
+tfidf_vectorizer = TfidfVectorizer()  
 
-## Conclusion section: 
-It can be seen that the cosine similarity model performs slightly better than the probability based one.
-One reason for this is that converting words into feature vectors using Bag Of Words helps
-These models will serve as useful baselines/benchmarks for the models we build for the upcoming milestones.
+X_train_tfidf = tfidf_vectorizer.fit_transform(X_train_np)
+X_test_tfidf = tfidf_vectorizer.transform(X_test_np)
 
-In the future models we build we plan on exploring/ looking into following:
-- Using Hidden Markov Models to perform named entity recognition. This should help focus on certain key parts of the sentence
-- Ensembling different kinds of models to see the effect on performance
-- Experimenting with different embeddings for the feature vectors that better capture semantic meaning
-- Looking for better evaluation metric 
+naive_bayes_model = MultinomialNB()
+naive_bayes_model.fit(X_train_tfidf[:train_sample], y_train[:train_sample])
+
+predictions = naive_bayes_model.predict(X_test_tfidf[:test_sample])
+
+```
+
+##### Diagram
+
+![alt text](images/NaiveBayes.png)
+
+# Results and Evalution
+
+#### Evaluation Function
+
+```python
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+
+def eval_fn(preds, y):
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    pred_embeddings = model.encode(preds)
+    y_embeddings = model.encode(y)
+    
+    similarities = []
+    for pred, ans in zip(pred_embeddings, y_embeddings):
+        similarities.append(cosine_similarity([pred], [ans])[0][0])
+    return sum(similarities) / len(similarities)
+```
+
+For the evaluation function, the objective to assess the closeness of the doctor's response as presented in the dataset and the prediction returned by the AI agent. We use the sentence transformer library from the Hugging Face Library since it is a State of the Art model for converting sentences to embeddings/vectors. After we obtain those vectors, we measure the cosine similarity between them to measure closeness.
+
+Note that a higher cosine similarity is indicative of better performance:
+High $\cos \theta$ $\Longrightarrow$ Low $\theta$ $\Longrightarrow$ Smaller angle between vector embeddings $\Longrightarrow$ sentences are closer
+
+#### Results on the test set for the 4 models
+
+| Type of Model | Performance on X_test | Imporvement relative to Baseline|
+|----------|----------|----------|
+| RandomAgent | 0.1879 | Row 1, Col 3 |
+| ProbabilityBasedAgent | 0.3824 | 2.035x |
+| SimilarityBasedAgent | 0.3579 | 1.9047x |
+| NaiveBayesAgent | 0.2671 | 1.421x |
+
+
+# Conclusion
+
 
 ## References
 
