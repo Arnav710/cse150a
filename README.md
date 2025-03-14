@@ -2,17 +2,21 @@
 
 # PEAS/Agent Analysis
 
-## Explain what your AI agent does in terms of PEAS. What is the "world" like? 
+### Explain what your AI agent does in terms of PEAS. What is the "world" like? 
 The AI physician chatbot functions within a simulated "world" of virtual health websites and websites on which it delivers treatment to patients through chat interfaces. In relation to the PEAS framework:
-	Performance Measures: Overlap of model generated response with actual response, BLEU/ROUGE scores for response quality, and user satisfaction ratings.
-	Environment: Virtual conversational AI environment found on health websites, where interactions are limited to text communication.
-	Actuators: The chatbot applies rule-based systems and probabilistic models, supplemented by some NLP techniques as needed, to generate answers that are delivered through web APIs or interfaces.
-	Sensors: It receives user input by typing and gathers instantaneous feedback to adapt and enhance responses in real-time.
+
+Performance Measures: Overlap of model generated response with actual response in the form of cosine similarity between vector encodings produced by the model and the doctor's response
+
+Environment: Virtual conversational AI environment found on health websites, where interactions are limited to text communication.
+
+Actuators: The chatbot applies rule-based systems and probabilistic models, supplemented by some NLP techniques as needed, to generate answers that are delivered through web APIs or interfaces.
+
+Sensors: It receives user input by typing and gathers instantaneous feedback to adapt and enhance responses in real-time.
  
-## What kind of agent is it? Goal based? Utility based? etc. 
+### What kind of agent is it? Goal based? Utility based? etc. 
 The chatbot is a goal-based agent, as it has a precise objective: to answer patient queries correctly, emulating a doctor's line of reasoning. This system understands symptoms, processes contextual information, and produces medically relevant answers. Making use of pattern matching, probabilistic models, and some NLP techniques, it reaches an informed decision and continually refines accuracy based on feedback.
 
-## Describe how your agent is set up and where it fits in probabilistic modeling
+### Describe how your agent is set up and where it fits in probabilistic modeling
 The agent starts with a strong foundation in simple probabilistic models such as pattern matching and cosine similarity to address straightforward interpretation of user queries. These models form a foundation for learning how to process and answer medical queries. As the complexity of the queries increases, the system uses more sophisticated NLP techniques to increase interpretation and response accuracy. This probabilistic approach allows the agent to handle natural language processing uncertainties adequately by statistical inference in forecasting and generating appropriate responses based on acquired data over the course of training and from user interactions.
 
 # Data Exploration and Preprocessing
@@ -133,6 +137,8 @@ for x in X_test['description'][:sample]:
 The probability based agent constructs the vocabulary by looking at all the  questions in the dataset. 
 
 The probability based model computes the probability of the query vector given each of the patient questions in the dataset. In this way it helps us determine the question in the dataset that is the closest match to the query. The query is tokenized by splitting it at whitespace. Then, we count the number of words that are in common between the query and the i-th sentence. Following that, the number of matches is divided by the length of the query vector. In order to prevent non-zero values, a smoothening factor is added to perform Laplace Smoothening.
+
+Here our CPT involves the following - the probability of the query given the sample.
 
    $$P(\text{q | s}) = \frac{\sum_{i=1}^n \sum_{j=1}^m I(q_i = s_j) + \alpha}{n + \alpha}$$
 
@@ -290,7 +296,7 @@ predictions = naive_bayes_model.predict(X_test_tfidf[:test_sample])
 
 ![alt text](images/NaiveBayes.png)
 
-# Results and Evalution
+# Results and Conclusion
 
 #### Evaluation Function
 
@@ -325,7 +331,13 @@ High $\cos \theta$ $\Longrightarrow$ Low $\theta$ $\Longrightarrow$ Smaller angl
 | NaiveBayesAgent | 0.2671 | 1.421x |
 
 
-# Conclusion
+#### Conclusion
+
+We see that in terms of the models we built, the performace of the probability based agent was the best, followed by the similarity based agent and then the naive bayes agent. 
+
+- In most of the models we were using, we were making the simplifying assumpton of **treating sentences and user queries as unigrams**. This is not generally true in the real world since words are often related. Therefore, this would have resulted in limiting the understanding of the models we built. We can look into resolving this issue by looking into models that **consider n-gram sequences instead and building our conditional proabability tables taking into account the same**.
+
+- While working on this project we also **limited ourselves to the use of models that did not involve a transformer based architecture**. Thus, none of the models had generative capabilities. In the future, we could look into building a model that uses a **combination of probabilistic based and generative methods** to obtain better results. The model would first use probabilistic and similarity based approaches to find related answers in the dataset. These answers could form the context passed into a transformer to generate accurate results. This would form something closer to a **Retreival Augmented Generation** system.
 
 
 ## References
