@@ -323,7 +323,7 @@ High $\cos \theta$ $\Longrightarrow$ Low $\theta$ $\Longrightarrow$ Smaller angl
 
 #### Results on the test set for the 4 models
 
-| Type of Model | Performance on X_test | Imporvement relative to Baseline|
+| Type of Model | Performance on X_test | Improvement relative to Baseline|
 |----------|----------|----------|
 | RandomAgent | 0.1879 |  |
 | ProbabilityBasedAgent | 0.3824 | 2.035x |
