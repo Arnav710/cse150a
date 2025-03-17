@@ -352,8 +352,16 @@ Sample prompt:
 I am building a chatbot and want to compare the output produced by my model with actual doctor responses. 
 How can I build an evaluation function that captures the semantic meaning of sentences and then measures similarity using cosine similarity
 
+Output:
+<img width="580" alt="image" src="https://github.com/user-attachments/assets/7062fcb2-c76a-4174-a3d3-91d052fa34f0" />
+
+
 2. Used Perplexity to come up with the idea of how Naive Bayes can be adapted for this task by converting sentences into vectors
 using term frequency inverse document frequency (TF-IDF)
 
 Sample Prompt:
 I want to use TFIDF vector encodings for naive bayes, which model from sklearn can i use for this purpose
+
+Output:
+
+<img width="591" alt="image" src="https://github.com/user-attachments/assets/7104daa1-951b-42f2-b29c-1fc73df462c5" />
