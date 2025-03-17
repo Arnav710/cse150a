@@ -353,6 +353,7 @@ I am building a chatbot and want to compare the output produced by my model with
 How can I build an evaluation function that captures the semantic meaning of sentences and then measures similarity using cosine similarity
 
 Output:
+
 <img width="580" alt="image" src="https://github.com/user-attachments/assets/7062fcb2-c76a-4174-a3d3-91d052fa34f0" />
 
 
