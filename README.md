@@ -347,5 +347,13 @@ word overlap between the doctor's response and the model prediction. Simply look
 and does not take into account any form of semantic meaning. Using Perplexity we switched over to a new evalutation function
 that uses Hugging Face's sentence_transformers library to convert the sentences into vectors and then uses the cosine similarity
 metric to assess similarity.
+
+Sample prompt:
+I am building a chatbot and want to compare the output produced by my model with actual doctor responses. 
+How can I build an evaluation function that captures the semantic meaning of sentences and then measures similarity using cosine similarity
+
 2. Used Perplexity to come up with the idea of how Naive Bayes can be adapted for this task by converting sentences into vectors
 using term frequency inverse document frequency (TF-IDF)
+
+Sample Prompt:
+I want to use TFIDF vector encodings for naive bayes, which model from sklearn can i use for this purpose
